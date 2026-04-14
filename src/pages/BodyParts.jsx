@@ -12,7 +12,15 @@ export default function BodyParts() {
         <div
           key={part}
           className="card"
+          role="button"
+          tabIndex={0}
           onClick={() => navigate(`/workouts/${part}`)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              navigate(`/workouts/${part}`);
+            }
+          }}
         >
           {part}
         </div>
