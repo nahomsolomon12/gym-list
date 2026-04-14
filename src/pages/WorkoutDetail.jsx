@@ -5,13 +5,20 @@ export default function WorkoutDetail() {
   const { part, name } = useParams();
   const navigate = useNavigate();
 
-  const workout = gymData[part].find(
-    (w) => w.name === name
-  );
+  const workout = gymData[part]?.find((w) => w.name === name);
+
+  if (!workout) {
+    return (
+      <div className="container">
+        <button aria-label="Go back" onClick={() => navigate(-1)}>⬅ Back</button>
+        <h1>Workout not found</h1>
+      </div>
+    );
+  }
 
   return (
     <div className="container">
-      <button onClick={() => navigate(-1)}>⬅ Back</button>
+      <button aria-label="Go back" onClick={() => navigate(-1)}>⬅ Back</button>
 
       <h1>{workout.name}</h1>
 
@@ -21,7 +28,7 @@ export default function WorkoutDetail() {
           height="100%"
           src={workout.video}
           title={workout.name}
-          frameBorder="0"
+          style={{ border: "none" }}
           allowFullScreen
         />
       </div>
